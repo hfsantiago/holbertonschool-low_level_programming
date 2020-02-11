@@ -1,17 +1,17 @@
 #include "holberton.h"
-
 /**
- * _islower - Entry point
- * @c: integer value of a ascii
- * Return: Always 0
+ * _islower - print the text in lowercase
+ * @c: The character to print
+ *
+ * Return: On success 0.
  */
 int _islower(int c)
 {
-	if (c >= 97 && c <= 122)
-	{
-		return (1);
-	}
+	int b;
+
+	for (b = 'a'; b <= 'z'; b++)
+		if (c == b)
+			return (1);
 
 	return (0);
 }
-
