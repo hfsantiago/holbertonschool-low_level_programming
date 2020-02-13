@@ -1,4 +1,4 @@
-nclude "holberton.h"
+#include "holberton.h"
 /**
   * _isupper - function that checks for uppercase character
   * @c: takes in a character
