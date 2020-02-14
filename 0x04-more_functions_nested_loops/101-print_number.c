@@ -1,37 +1,53 @@
 #include "holberton.h"
-#include <stdio.h>
-
 /**
- * print_number - Print a integer
- * @n: Number
- */
+* print_number - prints every int
+* @n: int given
+*
+* Description: Prints any int using only _putchar
+*/
+
 void print_number(int n)
 {
-	int  digs[10], i;
+int adjust, neg;
 
-	if (n == 0)
+neg = 11;
+
+if (n < 0)
+{
+	_putchar('-');
+
+	if (n < -99)
 	{
-		_putchar('0');
-		return;
+		neg = n % -10 * -1;
+		n = (n / -10);
 	}
-	else if (n < 0)
+	else
+		n = n * -1;
+}
+
+if (n > 9)
+{
+
+	adjust = 10;
+
+	while (n / adjust >= 10)
+		adjust = adjust * 10;
+
+
+
+	_putchar((n / adjust) + '0');
+
+	while (adjust >= 10)
 	{
-		n = -n;
-		_putchar('-');
+		adjust = adjust / 10;
+		_putchar(((n / adjust) % 10)  + '0');
 	}
 
-	i = 0;
-	while (n > 0)
-	{
-		digs[i] = n % 10;
-		n = n / 10;
-		i++;
-	}
+if (neg < 10)
+	_putchar(neg + '0');
+}
 
-	i = i - 1;
+else
+	_putchar(n + '0');
 
-	for (; i >= 0; i--)
-	{
-		_putchar(digs[i] + 48);
-	}
 }
