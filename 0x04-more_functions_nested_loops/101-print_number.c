@@ -1,18 +1,37 @@
 #include "holberton.h"
+#include <stdio.h>
+
 /**
- * print_number - prins numbers
- * @n: number value
+ * print_number - Print a integer
+ * @n: Number
  */
 void print_number(int n)
 {
-	if (n < 0)
+	int  digs[10], i;
+
+	if (n == 0)
 	{
+		_putchar('0');
+		return;
+	}
+	else if (n < 0)
+	{
+		n = -n;
 		_putchar('-');
-		n = (n * (-1));
 	}
 
-	if (n / 10)
-		print_number(n / 10);
-	_putchar(n % 10 + '0');
-}
+	i = 0;
+	while (n > 0)
+	{
+		digs[i] = n % 10;
+		n = n / 10;
+		i++;
+	}
 
+	i = i - 1;
+
+	for (; i >= 0; i--)
+	{
+		_putchar(digs[i] + 48);
+	}
+}
