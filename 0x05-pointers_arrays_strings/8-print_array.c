@@ -1,4 +1,4 @@
-i#include <stdio.h>
+#include <stdio.h>
 /**
   * print_array - prints n number of elements in array
   * @a: array of type int and pointer
