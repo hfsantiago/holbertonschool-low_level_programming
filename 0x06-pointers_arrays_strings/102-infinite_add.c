@@ -1,77 +1,53 @@
 #include "holberton.h"
 #include <stdio.h>
-int _strlen(char *s);
-
 /**
-  *infinite_add - add two numbers that are chars
-  *@n1: first number
-  *@n2: second number
-  *@r: result buffer
-  *@size_r: size of result buffer
-  *Return: number with difference
-  */
+ * infinite_add - Adds two numbers
+ * @n1: first number.
+ * @n2: second number.
+ * @r: buffer to function.
+ * @size_r: Buffer size.
+ * Return: Pointer to awnser.
+ */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int i, max,  max_n1, max_n2;
-	int carry = 0, value = 0;
-	char aux_arr1[100];
-	char aux_arr2[50];
+	int num, i, j, k, l, m, sum, remain, num1, num2;
 
-	max_n1 = _strlen(n1);
-	max_n2 = _strlen(n2);
-	if (max_n1 > max_n2)
+	i = l = j = k = remain =  0;
+	while (n1[i] != '\0')
+		i++;
+	while (n2[j] != '\0')
+		j++;
+	if (i + 2 > size_r || j + 2 > size_r)
+		return (0);
+	i = i - 1;
+	j = j - 1;
+	while (i >= 0 || j >= 0)
 	{
-		max = max_n1;
-		for (i = max; i > 0; i++)
+		num1 = num2 = 0;
+		if (i >= 0)
+			num1 = n1[i--] - '0';
+		if (j >= 0)
+			num2 = n2[j--] - '0';
+		sum = num1 + num2 + remain;
+		if (sum > 9)
 		{
-			aux_arr1[max] = n1[i];
-			if (i >= (max - max_n2))
-				aux_arr2[i] = n2[i - max - max_n2];
-			else
-				aux_arr2[i] = '0';
+			remain = 1;
+			sum = sum - 10;
 		}
+		else
+			remain = 0;
+		r[k++] = (sum + '0');
 	}
-	else
+	if (remain == 1)
+		r[k++] = (1 + '0');
+	m = k;
+	k = k - 1;
+	for (l = 0; l < k; l++, k--)
 	{
-		max = max_n2;
-		for (i = 0; i < max; i++)
-		{
-			aux_arr1[i] = n2[i];
-			if (i >= (max - max_n1))
-				aux_arr2[i] = n1[i - max - max_n1];
-			else
-				aux_arr2[i] ='0';
-		}
+		num = r[k];
+		r[k] = r[l];
+		r[l] = num;
 	}
-	printf("valor maximo: %d \n", max);
-	printf("auxiliar 1: %s \n", aux_arr1);
-	printf("auxiliar 2: %s \n", aux_arr2);
-	printf("original 1: %s \n", n1);
-	printf("original 2: %s \n", n2);
-	for (i = 0; i < size_r; i++)
-	{
-		value = (aux_arr1[max - 1 - i] - '0') + (aux_arr2[max - 1 - i] - '0');
-		value = value + carry;
-		r[size_r - 1 - i] = value % 10 + '0';
-		carry = value / 10;
-	}
+	r[m] = '\0';
 	return (r);
-}
-
-/**
- *_strlen - returns data len
- *@s: input string
- *
- *Return:an int number
- *
- */
-int _strlen(char *s)
-{
-	int counter = 0;
-
-	while (*(s + counter) != 0)
-	{
-	counter++;
-	}
-	return (counter);
 }
