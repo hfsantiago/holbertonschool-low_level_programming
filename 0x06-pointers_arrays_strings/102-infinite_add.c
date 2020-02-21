@@ -1,54 +1,53 @@
 #include "holberton.h"
-
+#include <stdio.h>
 /**
- * infinite_add - adds two numbers
- * @n1: first number to add
- * @n2: second number to add
- * @r: buffer for result
- * @size_r: size of r
- *
- * Return: on success, pointer to r, otherwise 0
+ * infinite_add - Adds two numbers
+ * @n1: first number.
+ * @n2: second number.
+ * @r: buffer to function.
+ * @size_r: Buffer size.
+ * Return: Pointer to awnser.
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int i, add;
-	int j = size_r;
-	int c1 = 0, c2 = 0;
-	int dif1 = 0, dif2 = 0;
+	int num, i, j, k, l, m, sum, remain, num1, num2;
 
-	while (n1[c1] != '\0')
-		c1++;
-
-	while (n2[c2] != '\0')
-		c2++;
-
-/*	if (c1 > size_r - 1 || c2 > size_r - 1)
+	i = l = j = k = remain =  0;
+	while (n1[i] != '\0')
+		i++;
+	while (n2[j] != '\0')
+		j++;
+	if (i + 2 > size_r || j + 2 > size_r)
 		return (0);
-*/
-
-	for (i = 0; i < j; i++)
+	i = i - 1;
+	j = j - 1;
+	while (i >= 0 || j >= 0)
 	{
-		if (c1 > c2)
+		num1 = num2 = 0;
+		if (i >= 0)
+			num1 = n1[i--] - '0';
+		if (j >= 0)
+			num2 = n2[j--] - '0';
+		sum = num1 + num2 + remain;
+		if (sum > 9)
 		{
-			j = c1;
-			dif1 = c1 - c2;
-			if (i < dif1)
-				r[i] = n1[i];
-			else
-				r[i] = '0' + ((n1[i] 
-		}
-		else if (c2 > c1)
-		{
-			j = c2;
-			dif2 = c2 - c1;
-			if (i < dif2)
-				r[i] = n2[i];
+			remain = 1;
+			sum = sum - 10;
 		}
 		else
-		{
-			j = c1;
-		}
+			remain = 0;
+		r[k++] = (sum + '0');
 	}
-
+	if (remain == 1)
+		r[k++] = (1 + '0');
+	m = k;
+	k = k - 1;
+	for (l = 0; l < k; l++, k--)
+	{
+		num = r[k];
+		r[k] = r[l];
+		r[l] = num;
+	}
+	r[m] = '\0';
 	return (r);
 }
