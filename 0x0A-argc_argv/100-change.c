@@ -1,41 +1,51 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-int main(int argc, char **argv)
+/**
+ * main - entry point
+ * @argc: takes in arguments
+ * @argv: takes in arguments array
+ * Return: 0
+ */
+int main(int argc, char *argv[])
 {
-	int i, a, total = 0;
+	int cent, counter;
 
-	if (argc <= 1)
+	if (argc != 2)
 	{
-		puts("Error");
+		printf("Error\n");
 		return (1);
 	}
-
-	for (i = 1; i <= argc; i++)
+	cent = atoi(argv[1]);
+	counter = 0;
+	while (cent > 0)
 	{
-		a = atoi(argv[i]);
-		if (a % 25 == 0)
-		{	total += a / 25;
-			a = a % 25;
-		}
-		if (a % 10 == 0)
+		if (cent >= 25)
 		{
-			total += a / 10;
-			a = a % 10;
+			cent -= 25;
+			counter += 1;
 		}
-		if (a % 5 == 0)
+		else if (cent >= 10)
 		{
-			total += a / 5;
-			a = a % 5;
+			cent -= 10;
+			counter += 1;
 		}
-		if (a % 2 == 0)
+		else if (cent >= 5)
 		{
-			total += a / 2;
-			a = a % 2;
+			cent -= 5;
+			counter += 1;
 		}
-
+		else if (cent >= 2)
+		{
+			cent -= 2;
+			counter += 1;
+		}
+		else
+		{
+			cent -= 1;
+			counter += 1;
+		}
 	}
-	total = total + a;
-	printf("%d\n", total);
+	printf("%d\n", counter);
 	return (0);
 }
+
