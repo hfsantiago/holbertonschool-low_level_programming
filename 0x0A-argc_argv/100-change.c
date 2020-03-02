@@ -1,51 +1,61 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 /**
- * main - entry point
- * @argc: takes in arguments
- * @argv: takes in arguments array
- * Return: 0
- */
-int main(int argc, char *argv[])
+ * calculate - Minimum number of coins to make change for
+ * an amount of money
+ * @number: Amount of money
+ * Return: Number of coins for change
+ **/
+int calculate(int number)
 {
-	int cent, counter;
+	int cents[] = {25, 10, 5, 2, 1};
+	int n_coins, i;
+
+	i = n_coins = 0;
+	while (1)
+	{
+		if (number <= 0)
+			break;
+
+		if (number >= cents[i])
+		{
+			number -= cents[i];
+			n_coins++;
+			continue;
+		}
+
+		i++;
+	}
+
+	return (n_coins);
+}
+
+/**
+ * main - Entry point
+ * @argc: Argv length
+ * @argv: Arrays of array of characters
+ * Return: Return 0
+ */
+int main(int argc, char **argv)
+{
+	int number;
 
 	if (argc != 2)
 	{
 		printf("Error\n");
 		return (1);
 	}
-	cent = atoi(argv[1]);
-	counter = 0;
-	while (cent > 0)
+
+	number = atoi(argv[1]);
+	if (number < 0)
 	{
-		if (cent >= 25)
-		{
-			cent -= 25;
-			counter += 1;
-		}
-		else if (cent >= 10)
-		{
-			cent -= 10;
-			counter += 1;
-		}
-		else if (cent >= 5)
-		{
-			cent -= 5;
-			counter += 1;
-		}
-		else if (cent >= 2)
-		{
-			cent -= 2;
-			counter += 1;
-		}
-		else
-		{
-			cent -= 1;
-			counter += 1;
-		}
+		printf("0\n");
+		return (0);
 	}
-	printf("%d\n", counter);
+
+	printf("%d\n", calculate(number));
+
 	return (0);
 }
 
