@@ -1,22 +1,46 @@
-#include "holberton.h"
 #include <stdlib.h>
+#include "holberton.h"
 /**
- * array_range - creates an array of integers
- * @min: minimum value
- * @max: maximum value
- * Return: creates an array of elements
+ * alloc_grid - initilizes and return pointer to a 2 dimensional array of
+ * integers.
+ * @width: pointers to hold pointer
+ * @height: pointer being filled with 0
+ * Return: Null if no memory is allocated or double pointer if space created
+ * or null
+ * height or width is negative or 0
  */
-int *array_range(int min, int max)
-{
-	int *range;
+int **alloc_grid(int width, int height)
+{	/*width = collumns | height = rows*/
+
+	int **a; /*pointer to hold pointers*/
 	int i, j;
 
-	if (min > max)
+	if (width <= 0 || height <= 0)
 		return (NULL);
-	range = malloc(sizeof(int) * (max - min + 1));
-	if (range == NULL)
+	/*save pointer space * width amount of size*/
+	a = malloc(height * sizeof(int *));
+	if (a == NULL)
+	{
+		free(a);
 		return (NULL);
-	for (i = min, j = 0; i <= max; i++, j++)
-		range[j] = i;
-	return (range);
+	}
+	/*fill each pointer space with space in form of 0 height amount of times*/
+	for (i = 0; i < height; i++)
+	{
+		a[i] = malloc(width * sizeof(int));
+		if (a[i] == NULL)
+		{
+			for (j = 0; j <= i; j++)
+				free(a[j]);
+			free(a);
+			return (NULL);
+		}
+	}
+	for (i = 0; i < height; i++)
+	{
+		for (j = 0; j < width; j++)
+			a[i][j] = 0;
+	}
+	return (a);
+
 }
