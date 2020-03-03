@@ -1,75 +1,118 @@
-#include <stdlib.h>
 #include "holberton.h"
+#include <stdio.h>
+#include <stdlib.h>
 /**
- *countw - Gets the length of each individual word.
- *@strlen: A variable that takes in a string
- *Return: The length of the string
- */
-int countw(char *strlen)
-{
-	int i;
-
-	i = 0;
-	while (*strlen != '\0')
-	{
-		if (*strlen == ' ')
-			strlen++;
-		else
-		{
-			while (*strlen != ' ' && *strlen != '\0')
-			{
-				strlen++;
-			}
-			i++;
-		}
-	}
-	return (i);
-}
-/**
- *strtow - A function that splits a string into words
- *@str: a variable that takes in the string.
- *Return: The output of the string on a new line.
+ *strtow - splits a string into words
+ *@str: string to split
+ *
+ *Return: pointer to an array of strings
  */
 char **strtow(char *str)
 {
-	int i, w_count, w_len, j;
-	char **w_array, *sub_array;
+	int i = 0, wcount = 0, aindex = 0;
+	int letters, startofword;
+	char **array;
 
-	w_count = i = w_len = j = 0;
 	if (str == NULL || *str == '\0')
 		return (NULL);
-	w_count = countw(str);
-	if (w_count == 0)
+
+	wcount = wordcount(str);
+	if (wcount == 0)
 		return (NULL);
-	w_array = malloc((w_count + 1) * sizeof(char *));
-	if (w_array == NULL)
+	array = malloc(sizeof(char *) * (wcount + 1));
+	if (array == NULL)
 		return (NULL);
-	while (*str != '\0' && i < w_count)
+
+	while (*(str + i) != '\0')
 	{
-		if (*str == ' ')
-			str++;
+		if (*(str + i) == ' ' || *(str + i) == '\t')
+			i++;
 		else
 		{
-			sub_array = str;
-			while (*str != ' ' && *str != '\0')
-				str++, w_len++;
-			w_array[i] = malloc((w_len + 1) * sizeof(char));
-			if (w_array[i] == NULL)
+			startofword = i;
+			letters = lettercount(startofword, str);
+			array[aindex] = malloc(sizeof(char) * (letters + 1));
+			if (array[aindex] == NULL)
 			{
-				for (i = i - 1; i >= 0; i--)
-					free(w_array[i]);
-				free(w_array);
+				while (aindex >= 0)
+				{
+					free(array[aindex]);
+					aindex--;
+				}
+				free(array);
 				return (NULL);
 			}
-			while (*sub_array != ' ' && *sub_array != '\0')
-			{
-				w_array[i][j] = *sub_array;
-				sub_array++; j++;
-			}
-			w_array[i][j] = '\0';
-			i++; j = 0; w_len = 0; str++;
+			i = fillarray(startofword, str, array[aindex]);
+			aindex++;
 		}
 	}
-	w_array[w_count] = NULL;
-	return (w_array);
+	array[aindex] = NULL;
+	return (array);
+}
+
+/**
+ *wordcount - counts the number of words in the string
+ *@str: string to count over
+ *
+ *Return: the number of words
+ */
+int wordcount(char *str)
+{
+	int i = 0;
+	int wcount = 0;
+
+	while (*(str + i) != '\0')
+	{
+		if (*(str + i) == ' ' || *(str + i) == '\t')
+			i++;
+
+		else
+		{
+			wcount++;
+			while (*(str + i) != ' ' && *(str + i) != '\t')
+				i++;
+		}
+	}
+	return (wcount);
+}
+
+/**
+ *lettercount - allocates memory and adds string to it
+ *@i: index where the word in the string begins
+ *@str: string of interest
+ *
+ *Return: the position of string right after the word
+ */
+int lettercount(int i, char *str)
+{
+	int letters = 0;
+
+	while (*(str + i) != ' ' && *(str + i) != '\t')
+	{
+		letters++;
+		i++;
+	}
+	return (letters);
+}
+
+/**
+ *fillarray - fills the array with a word
+ *@i: the index where the word starts
+ *@str: the string to separate
+ *@array: the array to write to
+ *
+ *Return: location where the word ends
+ */
+int fillarray(int i, char *str, char *array)
+{
+	int counter = 0;
+
+	while (*(str + i) != ' ' && *(str + i) != '\t')
+	{
+		*(array + counter) = *(str + i);
+		i++;
+		counter++;
+	}
+	*(array + counter) = '\0';
+	return (i);
 }
