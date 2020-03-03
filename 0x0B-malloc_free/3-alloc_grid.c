@@ -1,27 +1,22 @@
 #include "holberton.h"
-#include <stdio.h>
-
-int **alloc_grid(int width, int height)
+#include <stdlib.h>
+/**
+ * array_range - creates an array of integers
+ * @min: minimum value
+ * @max: maximum value
+ * Return: creates an array of elements
+ */
+int *array_range(int min, int max)
 {
-	int **arr, i, j;
+	int *range;
+	int i, j;
 
-	if (width <= 0 || height <= 0)
+	if (min > max)
 		return (NULL);
-
-	arr = malloc(height * sizeof(int *));
-	if (arr == NULL)
+	range = malloc(sizeof(int) * (max - min + 1));
+	if (range == NULL)
 		return (NULL);
-
-	for (i = 0; i < height; i++)
-	{
-		arr[i] = malloc(width * sizeof(int));
-		if (arr[i] == NULL)
-			return (NULL);
-	}
-
-	for (i = 0; i < height; i++)
-		for (j = 0; j < width; j++)
-			arr[i][j] = 0;
-
-	return (arr);
+	for (i = min, j = 0; i <= max; i++, j++)
+		range[j] = i;
+	return (range);
 }
