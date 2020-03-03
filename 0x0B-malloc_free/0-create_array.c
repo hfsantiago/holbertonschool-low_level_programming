@@ -17,7 +17,7 @@ char *create_array(unsigned int size, char c)
 	}
 	else
 	{
-		ar_ptr = malloc(size + 1 * sizeof(c));
+		ar_ptr = malloc(size * sizeof(c));
 	}
 	for (i = 0; i < size; i++)
 		*(ar_ptr + i) = c;
