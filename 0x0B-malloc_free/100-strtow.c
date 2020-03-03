@@ -1,118 +1,76 @@
 #include "holberton.h"
-#include <stdio.h>
 #include <stdlib.h>
+
 /**
- *strtow - splits a string into words
- *@str: string to split
+ * wrdcnt - counts the number of words in a string
+ * @s: string to count
  *
- *Return: pointer to an array of strings
+ * Return: int of number of words
+ */
+int wrdcnt(char *s)
+{
+	int i, n = 0;
+
+	for (i = 0; s[i]; i++)
+	{
+		if (s[i] == ' ')
+		{
+			if (s[i + 1] != ' ' && s[i + 1] != '\0')
+				n++;
+		}
+		else if (i == 0)
+			n++;
+	}
+	n++;
+	return (n);
+}
+
+/**
+ * strtow - splits a string into words
+ * @str: string to split
+ *
+ * Return: pointer to an array of strings
  */
 char **strtow(char *str)
 {
-	int i = 0, wcount = 0, aindex = 0;
-	int letters, startofword;
-	char **array;
+	int i, j, k, l, n = 0, wc = 0;
+	char **w;
 
 	if (str == NULL || *str == '\0')
 		return (NULL);
-
-	wcount = wordcount(str);
-	if (wcount == 0)
+	n = wrdcnt(str);
+	if (n == 1)
 		return (NULL);
-	array = malloc(sizeof(char *) * (wcount + 1));
-	if (array == NULL)
+	w = (char **)malloc(n * sizeof(char *));
+	if (w == NULL)
 		return (NULL);
-
-	while (*(str + i) != '\0')
+	w[n - 1] = NULL;
+	i = 0;
+	while (str[i])
 	{
-		if (*(str + i) == ' ' || *(str + i) == '\t')
-			i++;
-		else
+		if (str[i] != ' ' && (i == 0 || str[i - 1] == ' '))
 		{
-			startofword = i;
-			letters = lettercount(startofword, str);
-			array[aindex] = malloc(sizeof(char) * (letters + 1));
-			if (array[aindex] == NULL)
+			for (j = 1; str[i + j] != ' ' && str[i + j]; j++)
+				;
+			j++;
+			w[wc] = (char *)malloc(j * sizeof(char));
+			j--;
+			if (w[wc] == NULL)
 			{
-				while (aindex >= 0)
-				{
-					free(array[aindex]);
-					aindex--;
-				}
-				free(array);
+				for (k = 0; k < wc; k++)
+					free(w[k]);
+				free(w[n - 1]);
+				free(w);
 				return (NULL);
 			}
-			i = fillarray(startofword, str, array[aindex]);
-			aindex++;
+			for (l = 0; l < j; l++)
+				w[wc][l] = str[i + l];
+			w[wc][l] = '\0';
+			wc++;
+			i += j;
 		}
-	}
-	array[aindex] = NULL;
-	return (array);
-}
-
-/**
- *wordcount - counts the number of words in the string
- *@str: string to count over
- *
- *Return: the number of words
- */
-int wordcount(char *str)
-{
-	int i = 0;
-	int wcount = 0;
-
-	while (*(str + i) != '\0')
-	{
-		if (*(str + i) == ' ' || *(str + i) == '\t')
-			i++;
-
 		else
-		{
-			wcount++;
-			while (*(str + i) != ' ' && *(str + i) != '\t')
-				i++;
-		}
+			i++;
 	}
-	return (wcount);
-}
-
-/**
- *lettercount - allocates memory and adds string to it
- *@i: index where the word in the string begins
- *@str: string of interest
- *
- *Return: the position of string right after the word
- */
-int lettercount(int i, char *str)
-{
-	int letters = 0;
-
-	while (*(str + i) != ' ' && *(str + i) != '\t')
-	{
-		letters++;
-		i++;
-	}
-	return (letters);
-}
-
-/**
- *fillarray - fills the array with a word
- *@i: the index where the word starts
- *@str: the string to separate
- *@array: the array to write to
- *
- *Return: location where the word ends
- */
-int fillarray(int i, char *str, char *array)
-{
-	int counter = 0;
-
-	while (*(str + i) != ' ' && *(str + i) != '\t')
-	{
-		*(array + counter) = *(str + i);
-		i++;
-		counter++;
-	}
-	*(array + counter) = '\0';
-	return (i);
+	return (w);
 }
