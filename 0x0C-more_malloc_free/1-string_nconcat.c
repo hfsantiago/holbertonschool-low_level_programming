@@ -1,4 +1,6 @@
+#include<stdio.h>
 #include "holberton.h"
+#include<stdlib.h>
 /**
  * string_nconcat - concatenate 2 strings, only n bytes of s2
  * @s1: string 1
