@@ -2,26 +2,25 @@
 #include "holberton.h"
 #include <stdlib.h>
 /**
- * _calloc - allocates memory for an array,
- * using malloc and initilizes it with zeros
- * @nmemb: number of elements
- * @size: type of variable
- * Return: Null if malloc fails or pointer to memory
+ * array_range - create an array of integers inclusive of min and max
+ * @min: min value to include
+ * @max: max value to include
+ * Return: pointer to newly created array
  */
-void *_calloc(unsigned int nmemb, unsigned int size)
+int *array_range(int min, int max)
 {
-/* initilizing it with 0 and char takes up same amount of space as a byte*/
-	char *memory;
-	unsigned int i;
+	int *ptr;
+	int i;
 
-	if (nmemb == 0 || size == 0)
+	if (min > max)
 		return (NULL);
 
-	memory = malloc(nmemb * size);
-	if (memory == NULL)
+	ptr = malloc(sizeof(int) * (max - min + 1));
+	if (ptr == NULL)
 		return (NULL);
 
-	for (i = 0; i < nmemb + size; i++)
-		memory[i] = 0;
-	return (memory);
+	for (i = 0 ; min <= max ; i++, min++)
+		ptr[i] = min;
+
+	return (ptr);
 }
