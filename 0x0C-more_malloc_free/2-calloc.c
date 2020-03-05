@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "holberton.h"
 #include <stdlib.h>
+#include <string.h>
 /**
  * array_range - create an array of integers inclusive of min and max
  * @min: min value to include
