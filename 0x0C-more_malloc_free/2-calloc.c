@@ -3,25 +3,25 @@
 #include <stdlib.h>
 #include <string.h>
 /**
- * array_range - create an array of integers inclusive of min and max
- * @min: min value to include
- * @max: max value to include
- * Return: pointer to newly created array
+ * _calloc - allocates memory for an array given number of elements and size
+ * @nmemb: number of elements
+ * @size: size of each element
+ * Return: Null if error, else pointer to allocated memory
  */
-int *array_range(int min, int max)
+void *_calloc(unsigned int nmemb, unsigned int size)
 {
-	int *ptr;
-	int i;
+	char *ptr;
+	unsigned int i;
 
-	if (min > max)
+	if (nmemb == 0 || size == 0)
 		return (NULL);
 
-	ptr = malloc(sizeof(int) * (max - min + 1));
+	ptr = malloc(nmemb * size);
 	if (ptr == NULL)
 		return (NULL);
 
-	for (i = 0 ; min <= max ; i++, min++)
-		ptr[i] = min;
+	for (i = 0 ; i < (nmemb * size) ; i++)
+		ptr[i] = 0;
 
 	return (ptr);
 }
