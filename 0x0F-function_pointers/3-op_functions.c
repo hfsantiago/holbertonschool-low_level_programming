@@ -1,42 +1,47 @@
-#include <stdio.h>
 #include "3-calc.h"
-#include <stdlib.h>
+
 /**
-  * op_add - adds a and b
-  * @a: takes in an int
-  * @b: takes in an int
-  * Return: a + b
-  */
+ * op_add - Add to numbers
+ * @a: Number 1
+ * @b: Number 2
+ * Return: Sum
+ **/
 int op_add(int a, int b)
 {
 	return (a + b);
 }
+
+
 /**
-  * op_sub - subtracts a from b
-  * @a: takes in an int
-  * @b: takes in an int
-  * Return: b - a
-  */
+ * op_sub - Substract to numbers
+ * @a: Number 1
+ * @b: Number 2
+ * Return: Rest two numbers
+ **/
 int op_sub(int a, int b)
 {
 	return (a - b);
 }
+
+
 /**
-  * op_mul - multiple two integers
-  * @a: takes in an int
-  * @b: takes in an int
-  * Return: a * b
-  */
+ * op_mul - Multiply to numbers
+ * @a: Number 1
+ * @b: Number 2
+ * Return: The result of multiply a with b
+ **/
 int op_mul(int a, int b)
 {
 	return (a * b);
 }
+
+
 /**
-  * op_div - function that divides a with b
-  * @a: takes in an int
-  * @b: takes in an int
-  * Return: a / b
-  */
+ * op_div - Divide to numbers
+ * @a: Number 1
+ * @b: Number 2
+ * Return: Division
+ **/
 int op_div(int a, int b)
 {
 	if (b == 0)
@@ -44,14 +49,17 @@ int op_div(int a, int b)
 		printf("Error\n");
 		exit(100);
 	}
+
 	return (a / b);
 }
+
+
 /**
-  * op_mod - returns remainder of the division of a by b
-  * @a: takes in an int
-  * @b: takes in an int
-  * Return: a % b
-  */
+ * op_mod - Modulo
+ * @a: Number 1
+ * @b: Number 2
+ * Return: Modulo
+ **/
 int op_mod(int a, int b)
 {
 	if (b == 0)
@@ -59,5 +67,6 @@ int op_mod(int a, int b)
 		printf("Error\n");
 		exit(100);
 	}
+
 	return (a % b);
 }
