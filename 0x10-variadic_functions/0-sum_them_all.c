@@ -19,11 +19,11 @@ va_start(parameters, n);
 num = 0;
 
 	if (n == 0)
-	{	
-		return (0);
-	}		
-		for (rob = 0; rob < n; rob++)
-		{		
+	{
+	return (0);
+	}
+	for (rob = 0; rob < n; rob++)
+	{
 		count = va_arg(parameters, int);
 		num += count;
 		}
