@@ -14,7 +14,7 @@ size_t print_list(const list_t *h)
 		return (0);
 	while (walker != NULL)
 	{
-		printf("[%d] %s\n", walker->len, walker->str);
+		printf("[%d] %s\n", walker->len, walker->str : "(nil)");
 		walker = walker->next;
 		counter++;
 	}
