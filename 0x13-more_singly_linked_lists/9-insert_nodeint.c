@@ -1,49 +1,48 @@
 #include "lists.h"
-
 /**
- * insert_nodeint_at_index - inserts a new node at a given position.
- * @head: pointer to pointer of head.
- * @idx: index of the list where the new node
- * should be added. Index starts at 0.
- * @n: value of the new node.
- * Return: the address of the new node, or NULL if it failed.
+ * insert_nodeint_at_index - delete a head node and prints its value
+ * @head: list to delete
+ * @idx: index number
+ * @n: value of the node
+ * Return: the value of the node
  */
 listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 {
-	unsigned int count = 0;
-	listint_t *new_node;
-	listint_t *reference;
-	listint_t *previus = NULL;
+	listint_t *new, *tmp1, *tmp2;
+	unsigned int i = 0, j = 0;
 
-	if (!*head || !head)
+	if (head == NULL)
 		return (NULL);
-
-	reference = *head;
-
-	while (reference)
+	new = malloc(sizeof(listint_t)); /*create the node first*/
+	if (new == NULL)
+		return (NULL);
+	new->n = n; /*assign value*/
+	tmp1 = *head; /*tmp1 point whay head points*/
+	while (tmp1)
 	{
-		if (count == idx)
-		{
-			new_node = malloc(sizeof(listint_t));
-
-			if (new_node == NULL)
-				return (NULL);
-
-			new_node->n = n;
-			new_node->next = reference;
-
-			if (previus)
-				previus->next = new_node;
-			else
-				*head = new_node;
-
-			return (new_node);
-		}
-
-		previus = reference;
-		reference = reference->next;
-		count++;
+		tmp1 = tmp1->next;
+		j++;
 	}
-
-	return (NULL);
+	if (idx > j)
+		return (NULL);
+	if (idx == 0) /*if idx can iterate*/
+	{
+		new->next = *head;
+		*head = new;
+		return (new);
+	}
+	tmp1 = *head;
+	while (tmp1)
+	{
+		tmp2 = tmp1;
+		tmp1 = tmp2->next;
+		i++;
+		if (i == idx)
+		{
+			new->next = tmp1;
+			tmp2->next = new;
+			return (new);
+		}
+	}
+	return (new);
 }
