@@ -1,44 +1,38 @@
 #include "lists.h"
-/**
- * new_storage - adds address listint_t nodes
- * @head: pointer of a pointer shead
- * @address: address of node to be stored and compared to
- */
-void *new_storage(storage **head, listint_t *address)
-{
-	storage *new = malloc(sizeof(storage));
 
-	if (new == NULL)
-		return (NULL);
-	new->address = address;
-	new->next = *head;
-	*head = new;
-}
 /**
-  * print_listint_safe - prints all the elements of listint_t list
-  * @head: header pointing to the first node
-  * Return: numbers of nodes
-  */
+ * print_listint_safe - Prints a listint_t linked list
+ * @head: Head of the list
+ *
+ * Return: Numbers of elements of the list
+ **/
 size_t print_listint_safe(const listint_t *head)
 {
-	listint_t *current = head;
-	storage *shead = NULL;
-	size_t count;
+	int i, flag;
 
-	if (current == NULL)
-		return (98);
+	if (head == NULL)
+		return (0);
 
-	for (count = 0; current; count++)
+	for (i = flag = 0; head != NULL || flag; i++)
 	{
-		while (shead)
+		printf("[%p] %d\n", (void *) head, head->n);
+
+		if (head <= head->next)
 		{
-			if (shead != (storage *) current)
-				printf("[%p] %d\n", (void *) &current, current->n);
-			else
-				new_storage(&shead, current);
-			shead = shead->next;
+			flag = 1;
+			break;
 		}
-		current = current->next;
+
+		head = head->next;
+		flag = 0;
 	}
-	return (count);
+
+	if (flag)
+	{
+		head = head->next;
+		printf("-> [%p] %d\n", (void *) head, head->n);
+		i++;
+	}
+
+	return (i);
 }
