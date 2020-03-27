@@ -1,17 +1,24 @@
 #include "holberton.h"
 /**
-  * set_bit - sets the value of a bit to 1 at given index
-  * @n: takes in a pointer to a number
-  * @index: the index of the bit you want
-  * Return: 1 or -1 if error
+  * binary_to_uint - function that converts binary to unsigned int
+  * @b: takes in a conts char string
+  * Return: the converted unsigned int
   */
-int set_bit(unsigned long int *n, unsigned int index)
+unsigned int binary_to_uint(const char *b)
 {
-	unsigned long int changeNum = 1;
+	unsigned int counter = 0;
+	unsigned int decimal = 0;
 
-	changeNum <<= index;
-	if (index > sizeof(unsigned long int) * 8)
-		return (-1);
-	(*n) = (*n) | changekNum;
-	return (1);
+	if (b == NULL)
+		return (0);
+	while (b[counter] != '\0')
+	{
+		if (b[counter] != '0' && b[counter] != '1')
+			return (0);
+		decimal <<= 1;
+		if (b[counter] == '1')
+			decimal ^= 1;
+		counter++;
+	}
+	return (decimal);
 }
